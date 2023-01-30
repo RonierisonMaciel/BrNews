@@ -115,7 +115,7 @@ def run():
                 st.error("Nenhuma notícia encontrada para {}".format(chosen_topic))
 
     elif cat_op == category[3]:
-        user_topic = st.text_input("Digite seu tópico 🔍")
+        user_topic = st.text_input("Digite seu tópico 🔍", encoding='utf-8')
         no_of_news = st.slider('Número de notícias:', min_value=5, max_value=15, step=1)
 
         if st.button("Procurar") and user_topic != '':
