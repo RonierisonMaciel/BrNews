@@ -7,11 +7,11 @@ import io
 import nltk
 nltk.download('punkt')
 
-st.set_page_config(page_title='InNews🇮🇳: A Summarised News📰 Portal', page_icon='./Meta/newspaper.ico')
+st.set_page_config(page_title='BrNews 🇧🇷: Uma notícia resumida 📰 Portal', page_icon='./Meta/newspaper.ico')
 
 
 def fetch_news_search_topic(topic):
-    site = 'https://news.google.com/rss/search?q={}'.format(topic)
+    site = 'https://news.google.com.br/rss/search?q={}'.format(topic)
     op = urlopen(site)  # Open that site
     rd = op.read()  # read data from site
     op.close()  # close the object
@@ -21,7 +21,7 @@ def fetch_news_search_topic(topic):
 
 
 def fetch_top_news():
-    site = 'https://news.google.com/news/rss'
+    site = 'https://news.google.com.br/news/rss'
     op = urlopen(site)  # Open that site
     rd = op.read()  # read data from site
     op.close()  # close the object
@@ -31,7 +31,7 @@ def fetch_top_news():
 
 
 def fetch_category_news(topic):
-    site = 'https://news.google.com/news/rss/headlines/section/topic/{}'.format(topic)
+    site = 'https://news.google.com.br/news/rss/headlines/section/topic/{}'.format(topic)
     op = urlopen(site)  # Open that site
     rd = op.read()  # read data from site
     op.close()  # close the object
@@ -69,14 +69,14 @@ def display_news(list_of_news, news_quantity):
             st.markdown(
                 '''<h6 style='text-align: justify;'>{}"</h6>'''.format(news_data.summary),
                 unsafe_allow_html=True)
-            st.markdown("[Read more at {}...]({})".format(news.source.text, news.link.text))
-        st.success("Published Date: " + news.pubDate.text)
+            st.markdown("[Leia mais em {}...]({})".format(news.source.text, news.link.text))
+        st.success("Data da publicação: " + news.pubDate.text)
         if c >= news_quantity:
             break
 
 
 def run():
-    st.title("InNews🇮🇳: A Summarised News📰")
+    st.title("BrNews 🇧🇷: Uma notícia resumida 📰")
     image = Image.open('./Meta/newspaper.png')
 
     col1, col2, col3 = st.columns([3, 5, 3])
@@ -89,45 +89,45 @@ def run():
 
     with col3:
         st.write("")
-    category = ['--Select--', 'Trending🔥 News', 'Favourite💙 Topics', 'Search🔍 Topic']
-    cat_op = st.selectbox('Select your Category', category)
+    category = ['--Selecione--', 'Top notícias 🔥', 'Notícias favoritas 💙', 'Busque tópicos 🔍']
+    cat_op = st.selectbox('Selecione a categoria', category)
     if cat_op == category[0]:
-        st.warning('Please select Type!!')
+        st.warning('Selecione o tópico!!')
     elif cat_op == category[1]:
-        st.subheader("✅ Here is the Trending🔥 news for you")
-        no_of_news = st.slider('Number of News:', min_value=5, max_value=25, step=1)
+        st.subheader("✅ Aqui estão as notícias top 🔥 para você")
+        no_of_news = st.slider('Número de notícias:', min_value=5, max_value=25, step=1)
         news_list = fetch_top_news()
         display_news(news_list, no_of_news)
     elif cat_op == category[2]:
-        av_topics = ['Choose Topic', 'WORLD', 'NATION', 'BUSINESS', 'TECHNOLOGY', 'ENTERTAINMENT', 'SPORTS', 'SCIENCE',
+        av_topics = ['Escolha o tópico', 'WORLD', 'NATION', 'BUSINESS', 'TECHNOLOGY', 'ENTERTAINMENT', 'SPORTS', 'SCIENCE',
                      'HEALTH']
-        st.subheader("Choose your favourite Topic")
-        chosen_topic = st.selectbox("Choose your favourite Topic", av_topics)
+        st.subheader("Escolha seu tópico favorito")
+        chosen_topic = st.selectbox("Escolha o seu tópico favorito", av_topics)
         if chosen_topic == av_topics[0]:
-            st.warning("Please Choose the Topic")
+            st.warning("Escolha o tópico")
         else:
-            no_of_news = st.slider('Number of News:', min_value=5, max_value=25, step=1)
+            no_of_news = st.slider('Número de notícias:', min_value=5, max_value=25, step=1)
             news_list = fetch_category_news(chosen_topic)
             if news_list:
-                st.subheader("✅ Here are the some {} News for you".format(chosen_topic))
+                st.subheader("✅ Aqui estão algumas notícias do {} para você".format(chosen_topic))
                 display_news(news_list, no_of_news)
             else:
-                st.error("No News found for {}".format(chosen_topic))
+                st.error("Nenhuma notícia encontrada para {}".format(chosen_topic))
 
     elif cat_op == category[3]:
-        user_topic = st.text_input("Enter your Topic🔍")
-        no_of_news = st.slider('Number of News:', min_value=5, max_value=15, step=1)
+        user_topic = st.text_input("Digite seu tópico 🔍")
+        no_of_news = st.slider('Número de notícias:', min_value=5, max_value=15, step=1)
 
-        if st.button("Search") and user_topic != '':
+        if st.button("Procurar") and user_topic != '':
             user_topic_pr = user_topic.replace(' ', '')
             news_list = fetch_news_search_topic(topic=user_topic_pr)
             if news_list:
-                st.subheader("✅ Here are the some {} News for you".format(user_topic.capitalize()))
+                st.subheader("✅ Aqui estão algumas {} notícias para você".format(user_topic.capitalize()))
                 display_news(news_list, no_of_news)
             else:
-                st.error("No News found for {}".format(user_topic))
+                st.error("Nenhuma notícia encontrada para {}".format(user_topic))
         else:
-            st.warning("Please write Topic Name to Search🔍")
+            st.warning("Escreva o nome do tópico para pesquisar 🔍")
 
 
 run()
