@@ -4,7 +4,6 @@
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-360/)   
 
 ## [Watch Tutorial for this project](https://youtu.be/HHYqpHwGDgQ)
-<img src="https://github.com/Spidy20/InNews/blob/master/thumb.jpg">
 
 ## [Demo of App](https://share.streamlit.io/spidy20/innews/App.py)
 
