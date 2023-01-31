@@ -27,4 +27,3 @@
   ```
   streamlit run App.py
   ```
-- For more explanation of this project see the tutorial on Machine Learning Hub YouTube channel.
