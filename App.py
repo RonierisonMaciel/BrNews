@@ -7,7 +7,7 @@ import io
 import nltk
 nltk.download('punkt')
 
-st.set_page_config(page_title='BrNews 🇧🇷: Uma notícia resumida 📰 Portal', page_icon='./Meta/newspaper.ico')
+st.set_page_config(page_title='BrNews 🇧🇷: Resumo de notícias 📰 Portal', page_icon='./Meta/newspaper.ico')
 
 
 def fetch_news_search_topic(topic):
@@ -76,7 +76,7 @@ def display_news(list_of_news, news_quantity):
 
 
 def run():
-    st.title("BrNews 🇧🇷: Uma notícia resumida 📰")
+    st.title("BrNews 🇧🇷: Resumo de notícias 📰")
     image = Image.open('./Meta/newspaper.png')
 
     col1, col2, col3 = st.columns([3, 5, 3])
@@ -89,7 +89,7 @@ def run():
 
     with col3:
         st.write("")
-    category = ['--Selecione--', 'Top notícias 🔥', 'Notícias favoritas 💙', 'Busque tópicos 🔍']
+    category = ['--Selecione--', 'Notícias top 🔥', 'Notícias favoritas 💙', 'Busque tópicos 🔍']
     cat_op = st.selectbox('Selecione a categoria', category)
     if cat_op == category[0]:
         st.warning('Selecione o tópico!!')
@@ -102,7 +102,7 @@ def run():
         av_topics = ['Escolha o tópico', 'WORLD', 'NATION', 'BUSINESS', 'TECHNOLOGY', 'ENTERTAINMENT', 'SPORTS', 'SCIENCE',
                      'HEALTH']
         st.subheader("Escolha seu tópico favorito")
-        chosen_topic = st.selectbox("Escolha o seu tópico favorito", av_topics)
+        chosen_topic = st.selectbox("Escolha seu tópico favorito", av_topics)
         if chosen_topic == av_topics[0]:
             st.warning("Escolha o tópico")
         else:
@@ -115,19 +115,19 @@ def run():
                 st.error("Nenhuma notícia encontrada para {}".format(chosen_topic))
 
     elif cat_op == category[3]:
-        user_topic = st.text_input("Digite seu tópico 🔍")
+        user_topic = st.text_input("Digite o nome do tópico 🔍")
         no_of_news = st.slider('Número de notícias:', min_value=5, max_value=15, step=1)
 
         if st.button("Procurar") and user_topic != '':
             user_topic_pr = user_topic.replace(' ', '')
             news_list = fetch_news_search_topic(topic=user_topic_pr)
             if news_list:
-                st.subheader("✅ Aqui estão algumas {} notícias para você".format(user_topic.capitalize()))
+                st.subheader("✅ Aqui está algumas {} notícias para você".format(user_topic.capitalize()))
                 display_news(news_list, no_of_news)
             else:
                 st.error("Nenhuma notícia encontrada para {}".format(user_topic))
         else:
-            st.warning("Escreva o nome do tópico para pesquisar 🔍")
+            st.warning("Digite o nome do tópico para pesquisar 🔍")
 
 
 run()
