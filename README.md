@@ -19,6 +19,11 @@
 - Clone my repository.
 - Open CMD in working directory.
 - Run following command.
+- Open port TCP personalized (AWS)
+   - 8501
+- Origin type (AWS)
+   - Any
+Any 
   ```
   pip install -r requirements.txt
   ```
